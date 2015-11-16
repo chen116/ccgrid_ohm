@@ -7,9 +7,9 @@
 #date && echo "start uni heavy uni moderate" && \
 #./run_bench_Array_granular.sh myapp uni-heavy 10 uni-moderate && \
 
-#./ohm.sh myapp bimo-medium 10 uni-longRTXen && \
+./ohm.sh myapp bimo-medium 10 uni-longRTXen && \
 date && echo "start bimo-medium uni moderate" && \
-./ohm_bimo_moderate.sh myapp bimo-medium 10 uni-moderate && \
+#./ohm_bimo_moderate.sh myapp bimo-medium 10 uni-moderate && \
 echo "all done" && date
 
 
