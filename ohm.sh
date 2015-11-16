@@ -47,21 +47,53 @@ do
 
 echo "Starting ohm"
 #${ST_TRACE} -s mk &
-ftcat /dev/litmus/ft_cpu_trace0 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu0 &
+ftcat /dev/litmus/ft_cpu_trace0 SCHED_START SCHED_END > ohm_cpu0 &
 ST_TRACE0_PID="$!"
 echo "ftcat_cpu0 pid: ${ST_TRACE0_PID}"
 
-ftcat /dev/litmus/ft_cpu_trace1 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu1 &
+ftcat /dev/litmus/ft_cpu_trace1 SCHED_START SCHED_END > ohm_cpu1 &
 ST_TRACE1_PID="$!"
 echo "ftcat_cpu1 pid: ${ST_TRACE1_PID}"
 
-ftcat /dev/litmus/ft_cpu_trace2 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu2 &
+ftcat /dev/litmus/ft_cpu_trace2 SCHED_START SCHED_END > ohm_cpu2 &
 ST_TRACE2_PID="$!"
 echo "ftcat_cpu2 pid: ${ST_TRACE2_PID}"
 
-ftcat /dev/litmus/ft_cpu_trace3 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu3 &
+ftcat /dev/litmus/ft_cpu_trace3 SCHED_START SCHED_END > ohm_cpu3 &
 ST_TRACE3_PID="$!"
 echo "ftcat_cpu3 pid: ${ST_TRACE3_PID}"
+
+ftcat /dev/litmus/ft_cpu_trace4 SCHED_START SCHED_END > ohm_cpu4 &
+ST_TRACE4_PID="$!"
+echo "ftcat_cpu4 pid: ${ST_TRACE4_PID}"
+
+ftcat /dev/litmus/ft_cpu_trace5 SCHED_START SCHED_END > ohm_cpu5 &
+ST_TRACE5_PID="$!"
+echo "ftcat_cpu5 pid: ${ST_TRACE5_PID}"
+
+ftcat /dev/litmus/ft_cpu_trace6 SCHED_START SCHED_END > ohm_cpu6 &
+ST_TRACE6_PID="$!"
+echo "ftcat_cpu6 pid: ${ST_TRACE6_PID}"
+
+ftcat /dev/litmus/ft_cpu_trace7 SCHED_START SCHED_END > ohm_cpu7 &
+ST_TRACE7_PID="$!"
+echo "ftcat_cpu7 pid: ${ST_TRACE7_PID}"
+
+#ftcat /dev/litmus/ft_cpu_trace0 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu0 &
+#ST_TRACE0_PID="$!"
+#echo "ftcat_cpu0 pid: ${ST_TRACE0_PID}"
+
+#ftcat /dev/litmus/ft_cpu_trace1 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu1 &
+#ST_TRACE1_PID="$!"
+#echo "ftcat_cpu1 pid: ${ST_TRACE1_PID}"
+
+#ftcat /dev/litmus/ft_cpu_trace2 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu2 &
+#ST_TRACE2_PID="$!"
+#echo "ftcat_cpu2 pid: ${ST_TRACE2_PID}"
+
+#ftcat /dev/litmus/ft_cpu_trace3 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu3 &
+#ST_TRACE3_PID="$!"
+#echo "ftcat_cpu3 pid: ${ST_TRACE3_PID}"
 
 #ftcat /dev/litmus/ft_cpu_trace4 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu4 &
 #ST_TRACE4_PID="$!"
@@ -78,7 +110,6 @@ echo "ftcat_cpu3 pid: ${ST_TRACE3_PID}"
 #ftcat /dev/litmus/ft_cpu_trace7 CXS_START CXS_END SCHED_START SCHED_END > ohm_cpu7 &
 #ST_TRACE7_PID="$!"
 #echo "ftcat_cpu7 pid: ${ST_TRACE7_PID}"
-
 
 sleep 1
 
@@ -148,36 +179,37 @@ kill -USR1 ${ST_TRACE0_PID}
 kill -USR1 ${ST_TRACE1_PID}
 kill -USR1 ${ST_TRACE2_PID}
 kill -USR1 ${ST_TRACE3_PID}
-#kill -USR1 ${ST_TRACE4_PID}
-#kill -USR1 ${ST_TRACE5_PID}
-#kill -USR1 ${ST_TRACE6_PID}
-#kill -USR1 ${ST_TRACE7_PID}
+kill -USR1 ${ST_TRACE4_PID}
+kill -USR1 ${ST_TRACE5_PID}
+kill -USR1 ${ST_TRACE6_PID}
+kill -USR1 ${ST_TRACE7_PID}
 echo "Waiting for ohm_trace..."
 wait ${ST_TRACE0_PID}
 wait ${ST_TRACE1_PID}
 wait ${ST_TRACE2_PID}
 wait ${ST_TRACE3_PID}
-#wait ${ST_TRACE4_PID}
-#wait ${ST_TRACE5_PID}
-#wait ${ST_TRACE6_PID}
-#wait ${ST_TRACE7_PID}
+wait ${ST_TRACE4_PID}
+wait ${ST_TRACE5_PID}
+wait ${ST_TRACE6_PID}
+wait ${ST_TRACE7_PID}
 sleep 1
 
 mkdir -p run-data-fig2/"$PROG"/
 mkdir run-data-fig2/"$PROG"/"$Dist""_""$PDist""_""$util""_""$rep"/
-cat ohm_cpu0 ohm_cpu1 ohm_cpu2 ohm_cpu3 > all_events
-ft2csv CXS_START all_events > cxs_out
+#cat ohm_cpu0 ohm_cpu1 ohm_cpu2 ohm_cpu3 > all_events
+cat ohm_cpu0 ohm_cpu1 ohm_cpu2 ohm_cpu3 ohm_cpu4 ohm_cpu5 ohm_cpu6 ohm_cpu7> all_events
+#ft2csv CXS_START all_events > cxs_out
 ft2csv SCHED_START all_events > sched_out
-mv cxs_out run-data-fig2/"$PROG"/"$Dist""_""$PDist""_""$util""_""$rep"/
+#mv cxs_out run-data-fig2/"$PROG"/"$Dist""_""$PDist""_""$util""_""$rep"/
 mv sched_out run-data-fig2/"$PROG"/"$Dist""_""$PDist""_""$util""_""$rep"/
 rm ohm_cpu0
 rm ohm_cpu1
 rm ohm_cpu2
 rm ohm_cpu3
-#rm ohm_cpu4
-#rm ohm_cpu5
-#rm ohm_cpu6
-#rm ohm_cpu7
+rm ohm_cpu4
+rm ohm_cpu5
+rm ohm_cpu6
+rm ohm_cpu7
 rm all_events
 
 
